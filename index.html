@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chick-fil-A | Craveable. Every Single Day.</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --brand-red: #E4002B;
+            --brand-red-dark: #B8001F;
+            --brand-cream: #FDFCFB;
+            --brand-white: #FFFFFF;
+            --brand-charcoal: #1A1A1A;
+            --brand-gold: #F5A623;
+            --brand-gray: #F9FAFB;
+            --border-light: #F3F4F6;
+            --text-primary: #1A1A1A;
+            --text-secondary: #4B5563;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--brand-cream);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+
+        .btn-red {
+            background-color: var(--brand-red);
+            color: var(--brand-white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-red:hover {
+            background-color: var(--brand-red-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            color: var(--brand-white);
+            border: 2px solid var(--brand-white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--brand-white);
+            color: var(--brand-red);
+            transform: translateY(-3px);
+        }
+
+        /* 1. STICKY NAV */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.8rem 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 1.1rem 0;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--brand-white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-style: italic;
+            tracking: -0.03em;
+        }
+
+        header.scrolled .logo {
+            color: var(--brand-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--brand-white);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        header.scrolled .nav-links a { color: var(--text-primary); }
+        header.scrolled .nav-links a:hover { color: var(--brand-red); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background-color: var(--brand-red);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--brand-white);
+            cursor: pointer;
+        }
+
+        header.scrolled .hamburger {
+            color: var(--text-primary);
+        }
+
+        /* 2. HERO SECTION */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1600') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            color: var(--brand-white);
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1.2s forwards cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5.5rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            line-height: 1.05;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            margin-bottom: 3rem;
+            max-width: 550px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Floating Badge */
+        .hero-badge {
+            position: absolute;
+            right: 8%;
+            bottom: 15%;
+            background-color: rgba(255, 255, 255, 0.96);
+            padding: 1.8rem;
+            border-radius: 1.2rem;
+            box-shadow: var(--shadow-xl);
+            max-width: 280px;
+            border-left: 5px solid var(--brand-red);
+            z-index: 20;
+            opacity: 0;
+            transform: translateX(30px);
+            animation: slideInLeft 1s 0.5s forwards ease-out;
+        }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .badge-stars { color: var(--brand-gold); font-size: 0.8rem; margin-bottom: 0.8rem; letter-spacing: 0.4rem; }
+        .badge-quote { font-style: italic; color: #374151; font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.4; }
+        .badge-attr { font-size: 0.65rem; font-weight: 800; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* Marquee Ticker */
+        .ticker-wrapper {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.8);
+            color: var(--brand-white);
+            padding: 1rem 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+
+        .ticker span {
+            padding: 0 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* 3. SOCIAL PROOF BAR */
+        .stats-section {
+            padding: 5rem 0;
+            background-color: var(--brand-white);
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2.8rem;
+            color: var(--brand-red);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-item p {
+            font-weight: 800;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* 4. FEATURED MENU SECTION */
+        .menu-section {
+            padding: 8rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-underline {
+            width: 60px;
+            height: 5px;
+            background-color: var(--brand-red);
+            border-radius: 2.5px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .menu-card {
+            background: var(--brand-white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: #E5E7EB;
+        }
+
+        .menu-img {
+            height: 240px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .menu-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .menu-card:hover .menu-img img {
+            transform: scale(1.08);
+        }
+
+        .menu-info {
+            padding: 2rem;
+            text-align: left;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-info h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: var(--brand-charcoal);
+        }
+
+        .menu-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--brand-red);
+        }
+
+        .add-btn {
+            background-color: #F9FAFB;
+            color: var(--brand-charcoal);
+            padding: 0.6rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .menu-card:hover .add-btn {
+            background-color: var(--brand-red);
+            color: white;
+        }
+
+        /* 5. WHY CHICK-FIL-A */
+        .why-section {
+            padding: 8rem 0;
+            background-color: var(--brand-white);
+        }
+
+        .why-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 6rem;
+        }
+
+        .why-img {
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+
+        .why-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .why-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.1;
+        }
+
+        .feature-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+            background-color: #FEF2F2;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: var(--brand-red);
+            flex-shrink: 0;
+        }
+
+        .feature-text h5 {
+            font-size: 1.15rem;
+            margin-bottom: 0.4rem;
+            color: var(--brand-charcoal);
+            font-weight: 800;
+        }
+
+        .feature-text p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* 6. REWARDS SECTION */
+        .rewards-section {
+            background-color: var(--brand-charcoal);
+            color: var(--brand-white);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .rewards-bar {
+            background-color: var(--brand-red);
+            padding: 2.5rem 0;
+        }
+
+        .rewards-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rewards-tagline h2 { font-size: 2.2rem; margin-bottom: 0.2rem; line-height: 1; }
+        .rewards-tagline p { opacity: 0.85; font-size: 1rem; }
+
+        .rewards-main { background-color: var(--brand-charcoal); padding: 8rem 0; text-align: center; }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .step-item i {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: var(--brand-red);
+        }
+
+        .step-item h5 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-item p { opacity: 0.6; font-size: 1rem; }
+
+        .app-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .app-btn {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 1.8rem;
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .app-btn:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255,255,255,0.1);
+            border-color: var(--brand-red);
+        }
+
+        .app-btn i { font-size: 2.2rem; }
+        .app-btn div span { font-size: 0.75rem; display: block; opacity: 0.5; font-weight: 700; text-transform: uppercase; }
+        .app-btn div strong { font-size: 1.25rem; }
+
+        /* 7. LOCATIONS SECTION */
+        .locations-section {
+            padding: 10rem 0;
+            background-color: var(--brand-cream);
+            text-align: center;
+        }
+
+        .locations-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .search-container {
+            max-width: 650px;
+            margin: 0 auto 6rem;
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.6rem;
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            padding-left: 1.8rem;
+            outline: none;
+            font-size: 1.05rem;
+            font-family: inherit;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .location-card {
+            background: white;
+            padding: 3.5rem 2.5rem;
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            transition: var(--transition);
+            text-align: left;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .location-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--brand-red);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .location-card h4 { font-size: 1.6rem; margin-bottom: 1.2rem; color: var(--brand-charcoal); }
+        .location-card p { color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 1rem; }
+        .location-card .hours { margin-top: 1.8rem; font-weight: 800; color: var(--brand-charcoal); font-size: 0.9rem; }
+        .location-card .directions { display: flex; align-items: center; gap: 0.5rem; margin-top: 2.5rem; color: var(--brand-red); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; }
+
+        /* 8. TESTIMONIALS */
+        .testimonials-section {
+            padding: 10rem 0;
+            background-color: var(--brand-white);
+            text-align: center;
+        }
+
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .testi-card {
+            background: var(--brand-gray);
+            padding: 4rem 2.5rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            text-align: left;
+            position: relative;
+        }
+
+        .testi-card::before {
+            content: \"\\201C\";
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: rgba(228, 0, 43, 0.1);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .stars { color: var(--brand-gold); margin-bottom: 1.8rem; letter-spacing: 0.2rem; font-size: 0.8rem; }
+        .quote { font-style: italic; color: #374151; margin-bottom: 2.5rem; font-size: 1.1rem; line-height: 1.6; font-weight: 500; }
+        .customer { display: flex; align-items: center; gap: 1.2rem; }
+        .avatar { width: 48px; height: 48px; background: var(--brand-red); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; }
+        .customer-info strong { display: block; font-size: 1.1rem; color: var(--brand-charcoal); }
+        .customer-info span { font-size: 0.8rem; color: #9CA3AF; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+
+        /* 9. EMAIL SIGNUP */
+        .newsletter {
+            padding: 10rem 0;
+            text-align: center;
+            background: var(--brand-white);
+        }
+
+        .newsletter .container { max-width: 800px; }
+        .newsletter h2 { font-size: 3rem; margin-bottom: 3.5rem; line-height: 1.2; }
+        .signup-form { display: flex; gap: 0.5rem; background: var(--brand-gray); padding: 0.6rem; border-radius: 16px; border: 1px solid var(--border-light); }
+        .signup-form input { flex: 1; padding: 1.2rem 2.5rem; border: none; background: transparent; outline: none; font-size: 1.1rem; }
+        .newsletter .btn-red { border-radius: 12px; }
+        .privacy { margin-top: 2rem; font-size: 0.85rem; color: #9CA3AF; font-weight: 500; }
+
+        /* 10. FOOTER */
+        footer {
+            background-color: var(--brand-charcoal);
+            color: var(--brand-white);
+            padding: 8rem 0 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+
+        .footer-logo { font-size: 2.2rem; font-family: 'Playfair Display', serif; color: var(--brand-red); margin-bottom: 1.8rem; display: block; font-weight: 900; font-style: italic; }
+        .footer-col h5 { font-size: 1.1rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); font-weight: 800; }
+        .footer-col ul li { margin-bottom: 1rem; opacity: 0.7; font-weight: 500; font-size: 0.95rem; }
+        .footer-col ul li:hover { opacity: 1; color: var(--brand-red); }
+
+        .social-links { display: flex; gap: 1.2rem; margin-top: 2.5rem; }
+        .social-links a { width: 44px; height: 44px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .social-links a:hover { background: var(--brand-red); transform: translateY(-5px); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 500;
+        }
+
+        .footer-bottom-links { display: flex; gap: 2.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; font-size: 0.75rem; }
+        .footer-bottom-links a:hover { color: white; }
+
+        /* ANIMATIONS ON SCROLL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .menu-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-container { grid-template-columns: 1fr; }
+            .why-img { order: -1; }
+            .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--brand-white);
+                flex-direction: column;
+                justify-content: center;
+                transition: 0.5s ease;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { color: var(--text-primary); font-size: 1.5rem; }
+            .hamburger { display: block; }
+            .hero h1 { font-size: 2.8rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .location-grid, .testi-grid, .stats-grid { grid-template-columns: 1fr; }
+            .rewards-section h2 { font-size: 2.5rem; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .app-btns, .hero-btns, .signup-form { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .social-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. STICKY NAV -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Chick-fil-A 🐔</a>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#rewards">Rewards</a></li>
+                    <li><a href="#locations">Locations</a></li>
+                    <li><a href="#order" class="btn btn-red" style="padding: 0.6rem 1.5rem;">Order Now</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Craveable.<br>Every Single Day.</h1>
+            <p>Hand-breaded chicken, served with Southern hospitality — made fresh, just for you.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn btn-red">Order Delivery</a>
+                <a href="#menu" class="btn btn-outline">View Menu</a>
+            </div>
+        </div>
+        <!-- Floating Badge -->
+        <div class="hero-badge">
+            <div class="badge-stars">★★★★★</div>
+            <p class="badge-quote">"Their Spicy Deluxe sandwich is absolutely unreal. I could eat it every day."</p>
+            <div class="badge-attr">— James T., Atlanta</div>
+        </div>
+        <div class="ticker-wrapper">
+            <div class="ticker">
+                <span>🍗 Fresh. Never Frozen. ·</span>
+                <span>🐔 Hand-Breaded Daily. ·</span>
+                <span>❤️ My Pleasure. ·</span>
+                <span>🥤 Hand-Spun Milkshakes. ·</span>
+                <span>🥗 Real Ingredients. ·</span>
+                <span>🍗 Fresh. Never Frozen. ·</span>
+                <span>🐔 Hand-Breaded Daily. ·</span>
+                <span>❤️ My Pleasure. ·</span>
+                <span>🥤 Hand-Spun Milkshakes. ·</span>
+                <span>🥗 Real Ingredients. ·</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SOCIAL PROOF BAR -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="counter" data-target="2800">0</h3>
+                    <p>Locations Nationwide</p>
+                </div>
+                <div class="stat-item">
+                    <h3>#<span class="counter" data-target="1">0</span></h3>
+                    <p>Service Excellence</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="50">0</h3>
+                    <p>Years of My Pleasure</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Millions</h3>
+                    <p>Served Weekly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. FEATURED MENU SECTION -->
+    <section class="menu-section container" id="menu">
+        <div class="section-header reveal">
+            <h2>Fan Favorites</h2>
+            <div class="header-underline"></div>
+        </div>
+        <div class="menu-grid">
+            <!-- Card 1 -->
+            <div class="menu-card reveal">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Original Chicken Sandwich" loading="lazy">
+                </div>
+                <div class="menu-info">
+                    <h4>Original Sandwich</h4>
+                    <p>The one that started it all. A boneless breast of chicken seasoned to perfection, hand-breaded and pressure cooked.</p>
+                    <div class="price-row">
+                        <span class="price">$5.45</span>
+                        <button class="add-btn">Add Item</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="menu-card reveal">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" alt="Waffle Fries" loading="lazy">
+                </div>
+                <div class="menu-info">
+                    <h4>Waffle Potato Fries</h4>
+                    <p>Waffle-shaped potatoes with skin, cooked in canola oil until crispy outside and tender inside.</p>
+                    <div class="price-row">
+                        <span class="price">$2.15</span>
+                        <button class="add-btn">Add Item</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="menu-card reveal">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=400" alt="Chick-fil-A Nuggets" loading="lazy">
+                </div>
+                <div class="menu-info">
+                    <h4>Spicy Chicken</h4>
+                    <p>Bite-sized pieces of boneless chicken breast, seasoned with a spicy pepper blend and hand-breaded daily.</p>
+                    <div class="price-row">
+                        <span class="price">$5.95</span>
+                        <button class="add-btn">Add Item</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="menu-card reveal">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400" alt="Grilled Chicken Club" loading="lazy">
+                </div>
+                <div class="menu-info">
+                    <h4>Grilled Chicken Club</h4>
+                    <p>Lemon-herb marinated boneless breast of chicken, thinly sliced and served on a toasted multigrain bun.</p>
+                    <div class="price-row">
+                        <span class="price">$7.15</span>
+                        <button class="add-btn">Add Item</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="menu-card reveal">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400" alt="Peach Milkshake" loading="lazy">
+                </div>
+                <div class="menu-info">
+                    <h4>Peach Milkshake</h4>
+                    <p>Hand-spun the old-fashioned way, this refreshing seasonal milkshake features real peaches.</p>
+                    <div class="price-row">
+                        <span class="price">$4.25</span>
+                        <button class="add-btn">Add Item</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="menu-card reveal">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400" alt="Cobb Salad" loading="lazy">
+                </div>
+                <div class="menu-info">
+                    <h4>Chick-fil-A Cobb Salad</h4>
+                    <p>Freshly prepared each morning with sliced Chick-fil-A Nuggets and roasted corn kernels.</p>
+                    <div class="price-row">
+                        <span class="price">$8.95</span>
+                        <button class="add-btn">Add Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. WHY CHICK-FIL-A -->
+    <section class="why-section" id="about">
+        <div class="container why-container">
+            <div class="why-content reveal">
+                <h2>Not Just Chicken.<br>A Standard.</h2>
+                <div class="feature-row">
+                    <div class="feature-icon"><i class="fas fa-wheat-awn"></i></div>
+                    <div class="feature-text">
+                        <h5>Fresh Ingredients</h5>
+                        <p>Never frozen. Hand-breaded every morning. We prioritize quality you can taste in every bite.</p>
+                    </div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                    <div class="feature-text">
+                        <h5>My Pleasure Culture</h5>
+                        <p>Service that goes above and beyond, every time. It's more than a phrase; it's our commitment to you.</p>
+                    </div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="feature-text">
+                        <h5>Award-Winning Taste</h5>
+                        <p>America's #1 chicken sandwich, year after year. Consistently voted the favorite for a reason.</p>
+                    </div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <div class="feature-text">
+                        <h5>Community First</h5>
+                        <p>Committed to local giving and sustainable practices. We grow together with your neighborhood.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="why-img reveal">
+                <img src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=800" alt="Chick-fil-A Team" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. REWARDS SECTION -->
+    <section class="rewards-section" id="rewards">
+        <div class="rewards-bar">
+            <div class="container reveal">
+                <div class="rewards-tagline">
+                    <h2>Earn Free Food.</h2>
+                    <p>Join Chick-fil-A One® and earn points on every order.</p>
+                </div>
+                <div class="rewards-bar-btns">
+                    <a href="#" class="btn btn-outline" style="padding: 0.5rem 1.5rem; font-size: 0.7rem;">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="rewards-main">
+            <div class="container reveal">
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <i class="fas fa-mobile-screen-button"></i>
+                        <h5>1. Download the App</h5>
+                        <p>Available on iOS and Android platforms.</p>
+                    </div>
+                    <div class="step-item">
+                        <i class="fas fa-bolt-lightning"></i>
+                        <h5>2. Earn Points</h5>
+                        <p>Get 10 points for every dollar spent.</p>
+                    </div>
+                    <div class="step-item">
+                        <i class="fas fa-burger"></i>
+                        <h5>3. Get Free Food</h5>
+                        <p>Redeem your points for menu favorites.</p>
+                    </div>
+                </div>
+                <div class="app-btns">
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-apple"></i>
+                        <div>
+                            <span>Download on the</span>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-google-play"></i>
+                        <div>
+                            <span>GET IT ON</span>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. LOCATIONS SECTION -->
+    <section class="locations-section container" id="locations">
+        <div class="reveal">
+            <h2>Find Your Nearest Chick-fil-A</h2>
+            <div class="search-container">
+                <input type="text" placeholder="Enter city or zip code...">
+                <button class="btn btn-red">Find Location</button>
+            </div>
+        </div>
+        <div class="location-grid">
+            <!-- Location 1 -->
+            <div class="location-card reveal">
+                <h4>Atlanta, GA</h4>
+                <p>123 Peachtree St NE</p>
+                <p>Atlanta, GA 30303</p>
+                <p class="hours">Open: 6:30 AM - 10:00 PM</p>
+                <a href="#" class="directions">Get Directions <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Location 2 -->
+            <div class="location-card reveal">
+                <h4>Dallas, TX</h4>
+                <p>456 Main Street</p>
+                <p>Dallas, TX 75201</p>
+                <p class="hours">Open: 6:00 AM - 11:00 PM</p>
+                <a href="#" class="directions">Get Directions <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <!-- Location 3 -->
+            <div class="location-card reveal">
+                <h4>New York, NY</h4>
+                <p>789 6th Avenue</p>
+                <p>New York, NY 10001</p>
+                <p class="hours">Open: 7:00 AM - 12:00 AM</p>
+                <a href="#" class="directions">Get Directions <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. TESTIMONIALS -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="reveal">What Our Guests Are Saying</h2>
+            <div class="testi-grid">
+                <!-- Testi 1 -->
+                <div class="testi-card reveal">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="quote">"Honestly the best fast food experience I've ever had. The staff always makes you feel welcome."</p>
+                    <div class="customer">
+                        <div class="avatar">S</div>
+                        <div class="customer-info">
+                            <strong>Sarah M.</strong>
+                            <span>Nashville, TN</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testi 2 -->
+                <div class="testi-card reveal">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="quote">"Their Spicy Deluxe sandwich is absolutely unreal. I could eat it every day."</p>
+                    <div class="customer">
+                        <div class="avatar">J</div>
+                        <div class="customer-info">
+                            <strong>James T.</strong>
+                            <span>Atlanta, GA</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testi 3 -->
+                <div class="testi-card reveal">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="quote">"Clean restaurants, fast service, incredible food. Chick-fil-A sets the standard."</p>
+                    <div class="customer">
+                        <div class="avatar">M</div>
+                        <div class="customer-info">
+                            <strong>Maria L.</strong>
+                            <span>Austin, TX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. EMAIL SIGNUP -->
+    <section class="newsletter reveal">
+        <div class="container">
+            <h2>Be the First to Know About New Menu Items & Deals</h2>
+            <form class="signup-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-red">Subscribe</button>
+            </form>
+            <p class="privacy">No spam. Unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <!-- 10. FOOTER -->
+    <footer>
+        <div class="container footer-grid">
+            <div style="grid-column: span 2;">
+                <a href="#" class="footer-logo">Chick-fil-A 🐔</a>
+                <p style="opacity: 0.6; max-width: 300px;">To inspire people by providing delicious food and extraordinary service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>About</h5>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Foundation</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Menu</h5>
+                <ul>
+                    <li><a href="#">Breakfast</a></li>
+                    <li><a href="#">Entrees</a></li>
+                    <li><a href="#">Sides</a></li>
+                    <li><a href="#">Drinks</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Locations</h5>
+                <ul>
+                    <li><a href="#">Find a Restaurant</a></li>
+                    <li><a href="#">Browse All</a></li>
+                    <li><a href="#">Open a Franchise</a></li>
+                    <li><a href="#">Store Alerts</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2025 Chick-fil-A, Inc. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // STICKY HEADER
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // MOBILE MENU
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close menu when clicking link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.add('fa-bars');
+                hamburger.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // REVEAL ON SCROLL (Intersection Observer API)
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // COUNTER ANIMATION
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounters = (element) => {
+            const updateCount = () => {
+                const target = +element.getAttribute('data-target');
+                const count = +element.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    element.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 1);
+                } else {
+                    element.innerText = target;
+                }
+            };
+            updateCount();
+        };
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    animateCounters(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // FORM SUBMISSION (Mock)
+        document.querySelector('.signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Welcome to the family! Check your email soon.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
